@@ -1,10 +1,10 @@
-name: Build and Push Python Worker Node
+name: Build and Push Pressure Test Scripts
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   build-and-push:
