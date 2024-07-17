@@ -1,4 +1,4 @@
-,#!/bin/bash
+#!/bin/bash
 
 # Set the target URL for testing
 # URL="http://example.com"

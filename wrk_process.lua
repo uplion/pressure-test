@@ -1,3 +1,8 @@
+wrk.method = "POST"
+wrk.host = os.getenv("TEST_HOST")
+wrk.port = os.getenv("TEST_PORT") or 80
+wrk.body   = '{"model": "static","messages": [{"role": "user","content": "Hello"}]}'
+wrk.headers["Content-Type"] = "application/json"
 done = function(summary, latency, requests)
 --    io.write("Threads,Connections,Duration,Requests,Requests/sec,Transfer/sec,Avg Latency\n")
     io.write(string.format("%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n",
