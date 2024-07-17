@@ -1,0 +1,25 @@
+,#!/bin/bash
+
+# Set the target URL for testing
+# URL="http://example.com"
+
+# Set the duration of the test (in seconds)
+DURATION=30
+
+# Create the output file and write the header
+echo "Threads,Connections,Duration,Min Latency,Max Latency,Avg Latency,Latency Stdev,50% Latency,90% Latency,95% Latency,99% Latency,Min Request/Sec,Max Request/Sec,Avg Request/Sec,Request/Sec Stdev,50% Request/Sec,90% Request/Sec,95% Request/Sec,99% Request/Sec,Total Duration,Total Requests,Total Bytes,Total Connection Errors,Total Read Errors,Total Write Errors,Total HTTP Status Code,Total Request Timeouts" > results.csv
+
+# Loop through different thread and connection numbers for testing
+for threads in {1..30}
+do
+    for connections in $(seq 200 100 500)
+    do
+        echo "Running test with $threads threads and $connections connections"
+        echo -n "$threads,$connections,$DURATION," >> results.csv
+        wrk -t$threads -c$connections -d${DURATION}s -s wrk_process.lua $TEST_URL >> results.csv
+        # Add a short delay to avoid putting too much pressure on the server
+        sleep 2
+    done
+done
+
+echo "Testing completed. Results saved in results.csv"
